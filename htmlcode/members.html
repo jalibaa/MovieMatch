@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MovieMatch - Watch Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #2c2c2c;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar h1 {
+            margin: 0;
+            color: #e50914;
+            font-size: 1.5rem;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .choice-container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 2rem;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .choice-card {
+            background-color: #2c2c2c;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .choice-card h2 {
+            color: #e50914;
+            margin-top: 0;
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .commentary {
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: #2c2c2c;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .commentary.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .commentary h3 {
+            color: #e50914;
+            margin-top: 0;
+        }
+
+        .movie-suggestions {
+            margin-top: 1.5rem;
+            text-align: left;
+        }
+
+        .movie-suggestions h4 {
+            color: #e50914;
+            margin-bottom: 0.5rem;
+        }
+
+        .movie-list {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .movie-tag {
+            background-color: #444;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>MovieMatch</h1>
+    </div>
+
+    <div class="main-container">
+        <h2>How are you watching today?</h2>
+        
+        <div class="choice-container">
+            <div class="choice-card" onclick="window.location.href='sugg.html';">
+                <div class="icon">🎭</div>
+                <h2>Flying Solo</h2>
+                <p>Perfect for complete immersion and personal movie choices</p>
+            </div>
+
+            <div class="choice-card" onclick="window.location.href='polls.html';">
+                <div class="icon">🎬</div>
+                <h2>With Friends</h2>
+                <p>Share the experience and create memories together</p>
+            </div>
+        </div>
+
+        <div id="aloneCommentary" class="commentary">
+            <h3>Solo Movie Night - Perfect! 🌟</h3>
+            <p>Ah, the joy of watching movies alone! No compromises, no explanations needed, and absolutely no sharing of the popcorn. This is your time to:</p>
+            <ul>
+                <li>Fully immerse yourself in that art film you've been meaning to watch</li>
+                <li>Ugly cry without judgment during emotional scenes</li>
+                <li>Rewind and analyze that complex plot twist as many times as you want</li>
+            </ul>
+            <div class="movie-suggestions">
+                <h4>Perfect for watching:</h4>
+                <div class="movie-list">
+                    <span class="movie-tag">Complex Thrillers</span>
+                    <span class="movie-tag">Character Studies</span>
+                    <span class="movie-tag">Foreign Films</span>
+                    <span class="movie-tag">Documentary Series</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="friendsCommentary" class="commentary">
+            <h3>Movie Party Time! 🎉</h3>
+            <p>Group watching is an art form! Get ready for:</p>
+            <ul>
+                <li>Passionate debates about plot holes</li>
+                <li>Synchronized gasps during plot twists</li>
+                <li>Inside jokes that will last for years</li>
+                <li>The inevitable friend who predicts every plot twist (we all have one!)</li>
+            </ul>
+            <div class="movie-suggestions">
+                <h4>Perfect for watching:</h4>
+                <div class="movie-list">
+                    <span class="movie-tag">Comedy Classics</span>
+                    <span class="movie-tag">Horror Films</span>
+                    <span class="movie-tag">Action Blockbusters</span>
+                    <span class="movie-tag">Interactive Movies</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCommentary(type) {
+            // Hide all commentaries
+            document.getElementById('aloneCommentary').classList.remove('visible');
+            document.getElementById('friendsCommentary').classList.remove('visible');
+            
+            // Show selected commentary with animation
+            setTimeout(() => {
+                document.getElementById(type + 'Commentary').classList.add('visible');
+            }, 100);
+
+            // Scroll to commentary
+            document.getElementById(type + 'Commentary').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        }
+    </script>
+</body>
+</html>

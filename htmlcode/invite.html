@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieMatch - Watch Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #2c2c2c;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar h1 {
+            margin: 0;
+            color: #e50914;
+            font-size: 1.5rem;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .choice-container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 2rem;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .choice-card {
+            background-color: #2c2c2c;
+            border-radius: 12px;
+            padding: 2rem;
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .choice-card h2 {
+            color: #e50914;
+            margin-top: 0;
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .commentary {
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: #2c2c2c;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .commentary.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .commentary h3 {
+            color: #e50914;
+            margin-top: 0;
+        }
+
+        .invite-code-container {
+            margin-top: 2rem;
+            padding: 2rem;
+            background-color: #2c2c2c;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .invite-code {
+            font-size: 1.5rem;
+            color: #e50914;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>MovieMatch</h1>
+    </div>
+
+    <div class="main-container">
+        <h2>How are you watching today?</h2>
+        
+        <div class="choice-container">
+            <div class="choice-card" onclick="window.location.href='sugg.html';">
+                <div class="icon">🎭</div>
+                <h2>Flying Solo</h2>
+                <p>Perfect for complete immersion and personal movie choices</p>
+            </div>
+
+            <div class="choice-card" onclick="showCommentary('friends')">
+                <div class="icon">🎬</div>
+                <h2>With Friends</h2>
+                <p>Share the experience and create memories together</p>
+            </div>
+        </div>
+
+        <!-- Solo Commentary -->
+        <div id="aloneCommentary" class="commentary">
+            <h3>Solo Movie Night - Perfect! 🌟</h3>
+            <p>Ah, the joy of watching movies alone! No compromises, no explanations needed...</p>
+        </div>
+
+        <!-- Friends Commentary + Invite Code -->
+        <div id="friendsCommentary" class="commentary">
+            <h3>Movie Party Time! 🎉</h3>
+            <p>Group watching is an art form! Get ready for:</p>
+            <ul>
+                <li>Passionate debates about plot holes</li>
+                <li>Synchronized gasps during plot twists</li>
+                <li>Inside jokes that will last for years</li>
+            </ul>
+
+            <!-- Invite Code Section -->
+            <div id="inviteCodeSection" class="invite-code-container" style="display: none;">
+                <h4>Your Invite Code:</h4>
+                <div id="inviteCode" class="invite-code"></div>
+                <p>Share this code with your friends to join the movie night!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showCommentary(type) {
+            // Hide all commentaries
+            document.getElementById('aloneCommentary').classList.remove('visible');
+            document.getElementById('friendsCommentary').classList.remove('visible');
+            
+            // Show the selected commentary
+            setTimeout(() => {
+                document.getElementById(type + 'Commentary').classList.add('visible');
+            }, 100);
+
+            // Scroll to the commentary section
+            document.getElementById(type + 'Commentary').scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+
+            // If "With Friends" is selected, generate and display the invite code
+            if (type === 'friends') {
+                generateInviteCode();
+            }
+        }
+
+        function generateInviteCode() {
+            let code = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            for (let i = 0; i < 6; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            // Display the invite code
+            document.getElementById('inviteCode').innerText = code;
+
+            // Show the invite code section
+            document.getElementById('inviteCodeSection').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MovieMatch - Sign In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: white;
+        }
+
+        .navbar {
+            background-color: #2c2c2c;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            color: #e50914;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-link:hover {
+            background-color: #444;
+        }
+
+        .nav-link.active {
+            background-color: #e50914;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #2c2c2c;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            color: #e50914;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-header p {
+            color: #999;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #ccc;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #333;
+            color: white;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #e50914;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #e50914;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #f40612;
+        }
+
+        .error-message {
+            color: #e50914;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #999;
+        }
+
+        .form-footer a {
+            color: #e50914;
+            text-decoration: none;
+            margin-left: 0.5rem;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1 onclick="navigateToHome()">MovieMatch</h1>
+        <div class="nav-links">
+            <a href="#" class="nav-link active" onclick="showSignIn()">Sign In</a>
+            <a href="#" class="nav-link" onclick="showSignUp()">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- Sign In Form -->
+    <div id="signInContainer" class="container">
+        <div class="form-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to continue your movie journey</p>
+        </div>
+
+        <form id="signInForm" onsubmit="handleSignIn(event)">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <div id="signInError" class="error-message">
+                    Invalid username or password
+                </div>
+            </div>
+
+            <button type="submit">Log In</button>
+
+            <div class="form-footer">
+                New to MovieMatch?
+                <a href="#" onclick="showSignUp()">Create an account</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Sign Up Form (Initially Hidden) -->
+    <div id="signUpContainer" class="container" style="display: none;">
+        <div class="form-header">
+            <h2>Create Your Profile</h2>
+            <p>Join MovieMatch to discover and share your favorite films</p>
+        </div>
+
+        <form id="signUpForm" onsubmit="handleSignUp(event)">
+            <div class="form-group">
+                <label for="newUsername">Username</label>
+                <input type="text" id="newUsername" name="newUsername" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newPassword">Password</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+                <div id="passwordError" class="error-message">
+                    Password must be at least 8 characters
+                </div>
+            </div>
+
+            <button type="submit">Create Account</button>
+
+            <div class="form-footer">
+                Already have an account?
+                <a href="#" onclick="showSignIn()">Sign in</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function showSignIn() {
+            document.getElementById('signInContainer').style.display = 'block';
+            document.getElementById('signUpContainer').style.display = 'none';
+            updateNavLinks('signin');
+        }
+
+        function showSignUp() {
+            document.getElementById('signInContainer').style.display = 'none';
+            document.getElementById('signUpContainer').style.display = 'block';
+            updateNavLinks('signup');
+        }
+
+        function updateNavLinks(active) {
+            const signInLink = document.querySelector('.nav-links a:first-child');
+            const signUpLink = document.querySelector('.nav-links a:last-child');
+            
+            if (active === 'signin') {
+                signInLink.classList.add('active');
+                signUpLink.classList.remove('active');
+            } else {
+                signInLink.classList.remove('active');
+                signUpLink.classList.add('active');
+            }
+        }
+
+        function handleSignIn(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Mock authentication - replace with actual backend authentication
+            if (username === 'demo' && password == '123') {
+                // alert('Sign in successful!');
+                window.location.href = 'members.html'; 
+                // Redirect to dashboard or home page
+            } else {
+                document.getElementById('signInError').style.display = 'block';
+            }
+        }
+
+        function handleSignUp(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('newUsername').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('newPassword').value;
+            
+            if (password.length < 8) {
+                document.getElementById('passwordError').style.display = 'block';
+                return;
+            }
+            
+            // Mock sign up - replace with actual backend registration
+            alert('Account created successfully! Please sign in.');
+            showSignIn();
+            event.target.reset();
+        }
+
+        function navigateToHome() {
+            // Add home page navigation
+            alert('Navigating to home page...');
+        }
+    </script>
+</body>
+</html>
